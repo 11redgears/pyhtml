@@ -1,12 +1,20 @@
 #!/bin/bash
 
-#fn = filename, sn = 
+# fn = filename, sn = extension name
+# find all markdown files in directory and convert to html file with hmtli extension to act as an intermediate file.
+
+#PATH=/home/ryan/git-repos/homepage
+
 find ./ -iname "*.md" -exec bash -c 'fn=${1%.*}; sn=${fn##*/}; 
     echo "Converting $1 to $sn.htmli"; 
     pandoc $1 -o $fn.htmli;
 ' bash {} \;
 
+# variable holding all of the temporary .htmli files
 FILES=*.htmli
+
+# all htmli files converted to html files with header and footer included
+# if then else looks for files with a non-standard header (eg. index.html) and concatenates the appropriate header file.
 
 for f in $FILES
 do
@@ -23,14 +31,5 @@ do
   fi
 done
 
-
-# create intermediate html files from new and modified md files
-#pandoc $FILE.md -o $FILE'_'.html
-#pandoc index.md -o index_.html
-
-# create full html files with header and footer
-#cat header_post.html $POSTMD'_'.html footer.html > $POSTMD.html
-#cat header_index.html index_.html footer.html > index.html
-
-# remove intermediate files
-#rm *_.html
+# delete all intermediate htmli files
+rm *.htmli >
